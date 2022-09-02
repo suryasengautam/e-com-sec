@@ -1,0 +1,40 @@
+.header {
+  padding: 16px;
+  gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(213deg 98% 48% / 82%);
+  position: sticky;
+  top: 0;
+}
+.header__title {
+  flex: 10%;
+  color: cornsilk;
+}
+.header__title h2 {
+  margin: 0;
+}
+.header__searchbar {
+  flex: 60%;
+}
+.layout__content {
+  padding: 16px;
+}
+
+/* styles for filter */
+.filter {
+  display: flex;
+}
+.filter__category select {
+  text-transform: capitalize;
+}
+.filter__text {
+  width: 100%;
+}
+.filter__text div[data-reach-combobox] {
+  display: flex;
+}
+.filter__text input {
+  width: 100%;
+}
