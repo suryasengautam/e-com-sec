@@ -38,3 +38,20 @@
 .filter__text input {
   width: 100%;
 }
+
+.header__navigation .container {
+
+  width : 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+.header__navigation__links {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+}

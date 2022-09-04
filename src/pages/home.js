@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { ACTION, useDispatch, useSelector } from '../store';
 import "./home.css"
-
+import {StarRating} from "../component/star-rating"
 
 function Home() {
     const [searchParams,] = useSearchParams();
@@ -32,7 +32,7 @@ function Home() {
     )
 }
 
-const StarRating = ({ rating }) => Array(Math.round(rating)).fill(0).map(rating => <span>⭐️</span>)
+// const StarRating = ({ rating }) => Array(Math.round(rating)).fill(0).map(rating => <span>⭐️</span>)
 
 function Category({ title, children }) {
     return <div className="category">
@@ -43,14 +43,23 @@ function Category({ title, children }) {
 
 function Product({ product }) {
     const { image, title, rating, price } = product;
+    const dispatch = useDispatch()
+    const addProductToCart =  () => {
+        dispatch({type : ACTION.ADD_TO_CART,payload : {product}})
+
+    }
     return (<div className='product'>
         <img src={image} alt={title} loading="lazy" />
         <div className='product__info'>
 
             <h3 className='product__title lineclamp'>{title}</h3>
-            <p><StarRating rating={rating.rate} /> out of {rating.count} ratings</p>
+            {/* <p><StarRating rating={rating.rate} /> out of {rating.count} ratings</p> */}
+            <StarRating rating = {rating}/>
             <p>
                 <strong>$</strong> {price}
+            </p>
+            <p className='product__add' onClick={addProductToCart}>
+                <button>Add to cart</button>
             </p>
         </div>
     </div>)
