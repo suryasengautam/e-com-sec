@@ -3,12 +3,19 @@ import "./cart.css";
 import {ACTION, useDispatch, useSelector} from '../store'
 import { StarRating } from '../component/star-rating';
 import { getSubtotal } from '../utils';
+import {useNavigate} from "react-router-dom"
 
 function Cart() {
   const cartItems = useSelector(state => state.cart)
   // const itemCount = getItemCount(cartItems)
   const  subTotal = getSubtotal(cartItems)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const proceedToCheckout =  () => {
+    navigate("/checkout")
+
+  }
   const handleQuantityChange = (e,{product,quantity}) => {
     const updatedQuantity = (e.target.value)
     console.log(updatedQuantity);
@@ -55,6 +62,9 @@ function Cart() {
       <section className='cart__subtotal'>
         <h2>Subtotal</h2>
         {subTotal}
+        <p>
+          <button onClick = {proceedToCheckout}>Buy now</button>
+        </p>
       </section>
 
     </div>
