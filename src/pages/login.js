@@ -14,11 +14,7 @@ function Login() {
         const {username,password} = e.target;
         await signIn(username.value,password.value)
         navigate("/")
-
     }
-
-
-
     return (
         <div className='login'>
             <form onSubmit = {handleSignIn}>
@@ -35,19 +31,8 @@ function Login() {
                 <section>
                     <p> new user? <Link to = "/signup">sign up</Link></p>
                 </section>
-
-
-
-
             </form>
-
-
-
-
         </div>
-       
-
     )
 }
-
 export default Login

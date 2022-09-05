@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Navigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import './App.css';
 import Cart from './pages/cart';
 import Home from './pages/home';
 import Login from './pages/login';
-import {useAuth} from './firebase/auth'
+import { useAuth } from './firebase/auth'
 import { ACTION, useDispatch, useSelector } from './store';
 
 import {
@@ -24,19 +24,35 @@ import "@reach/combobox/styles.css";
 import { useLocation } from 'react-router-dom';
 import { getItemCount } from './utils';
 import Checkout from './pages/checkout';
+import { signOut } from 'firebase/auth';
+import Signup from "./pages/signup"
 
 function App() {
   return (<Routes>
     <Route element={<Layout />}>
       <Route path='/' element={<Home />}></Route>
       <Route path='/cart' element={<Cart />}></Route>
-      <Route path='/checkout' element={<Checkout />}></Route>
-      <Route path='/login' element={<Login/>} />
+      <Route path='/checkout' element={
+        <ProtectedRoute>
+
+          <Checkout />
+        </ProtectedRoute>
+      }/>
     </Route>
+      <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
   </Routes>
 
 
   );
+}
+function ProtectedRoute({children}){
+  // const Navigate = useNavigate()
+  const {user} = useAuth()
+  if (!user){
+    return <Navigate to = "/login"/>
+  }
+  return children
 }
 
 function CartInfo(props) {
@@ -160,7 +176,13 @@ function SearchBar() {
 }
 
 function Header() {
-  const {user} = useAuth()
+  const { signOut, user } = useAuth()
+  const navigate = useNavigate()
+  const signOutCurrentUser = async () => {
+    await signOut()
+    navigate("/login")
+
+  }
   return (<nav className='header'>
     <section className='header__title'>
       <Link to="/">
@@ -175,6 +197,9 @@ function Header() {
         <li>
           {user ? `hello, ${user?.displayName ?? user.email}` : "Hello , sign In"}
 
+        </li>
+        <li>
+          {user ? <button onClick={signOutCurrentUser}>signOut</button> : null}
         </li>
         <li>
           <Link to="cart">
