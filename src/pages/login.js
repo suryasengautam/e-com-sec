@@ -3,7 +3,7 @@ import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../firebase/auth'
 import {Link} from "react-router-dom"
 import "./login.css"
-// import {signIn} from "../firebase/auth"
+import {signIn} from "../firebase/auth"
 
 
 function Login() {
@@ -29,7 +29,7 @@ function Login() {
                 </section>
                 <button type='submit'>Sign in</button>
                 <section>
-                    <p> new user? <Link to = "/signup">sign up</Link></p>
+                    <p> new user? <Link to = "/login">sign up</Link></p>
                 </section>
             </form>
         </div>

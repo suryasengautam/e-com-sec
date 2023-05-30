@@ -59,6 +59,7 @@ function Product({ product }) {
                 <strong>$</strong> {price}
             </p>
             <p className='product__add' onClick={addProductToCart}>
+            <button>Buy</button>
                 <button>Add to cart</button>
             </p>
         </div>
